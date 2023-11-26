@@ -16,6 +16,7 @@ class DrugsController extends Controller
         ], $statusCode);
     }
 
+    //adds a new drug into the db
     public function addDrugs(Request $data)
     {
         //if data is valid , then insert into db
@@ -39,14 +40,55 @@ class DrugsController extends Controller
         }
     }
 
-    public function getAllDrugs(){
+    //GETS ALL DRUGS
+    public function getAllDrugs()
+    {
         $durgs = drugs::all();
 
-        if($durgs->count() > 0 ){
-            return $this->apiDeliver(200,$durgs);
-        }else{
+        if ($durgs->count() > 0) {
+            return $this->apiDeliver(200, $durgs);
+        } else {
             return $this->apiDeliver(400, "No records found");
-
         }
     }
+
+    //GETS A SPECIFIC DRUG IN THE DB
+    public function getSpecificDrug($id)
+    {
+        $selected = drugs::find($id);
+        if ($selected) {
+
+            //the selected data is reyurned as data in the API json
+            return $this->apiDeliver(200, $selected);
+        } else {
+
+            //else an error message is sent back 
+            return $this->apiDeliver(404, "No such record was found");
+        }
+    }
+
+    //GETS DRUGS BY SORTING BY CATEGORY
+    public function getCategoricalDrugs($category)
+    {
+
+        $drugs = drugs::where('drug_category', $category)->get();
+        if ($drugs) {
+            //the $drugs data is reyurned as data in the API json
+            return $this->apiDeliver(200, $drugs);
+        } else {
+
+            //else an error message is sent back 
+            return $this->apiDeliver(404, "No such record was found");
+        }
+    }
+
+    //EDIT DRUG
+
+    //ADD DRUG CATEGORY
+
+    //GET DRUGS CATEGORIES
+
+    //EDIT DRUG CATEGORY
+
+    //
 }

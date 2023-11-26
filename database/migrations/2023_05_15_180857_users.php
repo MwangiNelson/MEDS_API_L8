@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tbl_users', function (Blueprint $table) {
             $table->id()->unique();
             $table->string('user_name');
-            $table->foreign('user_role')->references('id')->on('tbl_roles')->onDelete('cascade');
+            $table->string('user_role');
             $table->string('user_email')->unique();
             $table->string('user_password');
             $table->rememberToken();
@@ -33,3 +33,5 @@ return new class extends Migration
         //
     }
 };
+// $table->foreign('user_role')->references('id')->on('tbl_roles')->onDelete('cascade');
+
