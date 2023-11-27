@@ -40,5 +40,8 @@ Route::get('all_drugs', [DrugsController::class, 'getAllDrugs']);
 Route::get('fetch_drug/{id}', [DrugsController::class, 'getSpecificDrug']);
 Route::get('fetch_categorical/{category}', [DrugsController::class, 'getCategoricalDrugs']);
 Route::post('add_drugs', [DrugsController::class, 'addDrugs']);
+Route::put('edit_drug/{id}', [DrugsController::class, 'editDrug']);
 
 
+Route::get('all_categories', [DrugsController::class, 'getAllCategories']);
+Route::post('add_category', [DrugsController::class, 'addCategory']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\drug_categories;
 use App\Models\drugs;
 use Illuminate\Http\Request;
 
@@ -40,6 +41,21 @@ class DrugsController extends Controller
         }
     }
 
+    public function addCategory(Request $data)
+    {
+        //if data is valid , then insert into db
+        $new_item = drug_categories::create([
+            'category_name' => $data->category_name,
+        ]);
+
+        //if it's inserted, return an OK response else ERROR response
+        if ($new_item) {
+            return $this->apiDeliver(200, "Record inserted successfully");
+        } else {
+            return $this->apiDeliver(400, "Record could not be inserted");
+        }
+    }
+
     //GETS ALL DRUGS
     public function getAllDrugs()
     {
@@ -51,6 +67,19 @@ class DrugsController extends Controller
             return $this->apiDeliver(400, "No records found");
         }
     }
+
+     //GETS ALL DRUGS
+     public function getAllCategories()
+     {
+         $durgs = drug_categories::all();
+ 
+         if ($durgs->count() > 0) {
+             return $this->apiDeliver(200, $durgs);
+         } else {
+             return $this->apiDeliver(400, "No records found");
+         }
+     }
+
 
     //GETS A SPECIFIC DRUG IN THE DB
     public function getSpecificDrug($id)
@@ -83,6 +112,34 @@ class DrugsController extends Controller
     }
 
     //EDIT DRUG
+    public function editDrug(Request $request, $id){
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'drug_name' => 'required|string|max:255',
+            'drug_category' => 'required|string|max:255',
+            'drug_image' => 'nullable|url',
+            'drug_price' => 'required|numeric|min:0',
+            'drug_description' => 'nullable|string',
+            'unit_quantity' => 'required|integer|min:0',
+            'unit_description' => 'nullable|string',
+        ]);
+
+        // Find the drug by ID
+        $drug = drugs::findOrFail($id);
+
+        // Update the drug properties
+        $drug->update([
+            'drug_name' => $validatedData['drug_name'],
+            'drug_category' => $validatedData['drug_category'],
+            'drug_image' => $validatedData['drug_image'],
+            'drug_price' => $validatedData['drug_price'],
+            'drug_description' => $validatedData['drug_description'],
+            'unit_quantity' => $validatedData['unit_quantity'],
+            'unit_description' => $validatedData['unit_description'],
+        ]);
+
+        return $this->apiDeliver(200, 'Meds Updated');
+    }
 
     //ADD DRUG CATEGORY
 
