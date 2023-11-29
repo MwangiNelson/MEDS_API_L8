@@ -110,7 +110,9 @@ class UserController extends Controller
                         'user' => [
                             'username' => $userData->username,
                             'email' => $userData->email,
-                            'role' => 'user'
+                            'role' => 'user',
+                            'user_token' => $newUser->user_token
+
                         ]
                     ]
                 ], 200);
@@ -139,7 +141,8 @@ class UserController extends Controller
                         'user' => [
                             'username' => $user->user_name,
                             'email' => $user->user_email,
-                            'role' => $user->user_role
+                            'role' => $user->user_role,
+                            'user_token' => $user->user_token
                         ]
                     ]
                 ], 200);
@@ -185,18 +188,17 @@ class UserController extends Controller
 
         $user = users::findOrFail($id);
 
-        if($user){
+        if ($user) {
             $user->update([
                 'user_name' => $validatedData['user_name'],
                 'user_token' => $validatedData['user_token'],
                 'user_email' => $validatedData['user_email'],
                 'user_role' => $validatedData['user_role']
             ]);
-    
-            return $this->sendResponse($user, 'User updated successfully');
-        }else{
-            return $this->sendResponse(400, 'update failed');
 
+            return $this->sendResponse($user, 'User updated successfully');
+        } else {
+            return $this->sendResponse(400, 'update failed');
         }
     }
 

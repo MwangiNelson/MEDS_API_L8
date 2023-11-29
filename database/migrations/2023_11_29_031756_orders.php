@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-          //
-          Schema::create('tbl_roles', function (Blueprint $table) {
+        //
+        Schema::create('tbl_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('role_name');
-            $table->rememberToken();
+            $table->json('order_details');
+            $table->string('user_token');
             $table->timestamps();
-
         });
     }
 

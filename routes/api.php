@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\DrugsController;
-use App\Http\Controllers\API\RecipeController;
+use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -49,3 +49,5 @@ Route::delete('delete_drug/{id}', [DrugsController::class, 'deleteDrug']);
 
 Route::get('all_categories', [DrugsController::class, 'getAllCategories']);
 Route::post('add_category', [DrugsController::class, 'addCategory']);
+
+Route::post('add_order', [OrderController::class, 'addOrder']);
