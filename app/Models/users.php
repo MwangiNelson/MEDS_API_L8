@@ -14,7 +14,8 @@ class users extends Model
         'user_name',
         'user_email',
         'user_password',
-        'user_role'
+        'user_role',
+        'user_token'
     ];
 
     /**

@@ -29,10 +29,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('user/register', [UserController::class, 'registerUser']);
 Route::post('user/login', [UserController::class, 'signInUser']);
 Route::get('users', [UserController::class, 'getAllUsers']);
+Route::delete('delete_user/{id}', [UserController::class, 'deleteUser']);
+Route::put('update_user/{id}', [UserController::class, 'updateUser']);
+
+Route::get('get_stats', [UserController::class, 'getStats']);
+
 
 // Route::post('recipe/addToCookBook', [RecipeController::class, 'addToCookBook']);
 // Route::post('recipe/getCookBook', [RecipeController::class, 'getCookBook']);
-
 Route::post('register', [UserController::class, 'registerUser']);
 
 
@@ -41,7 +45,7 @@ Route::get('fetch_drug/{id}', [DrugsController::class, 'getSpecificDrug']);
 Route::get('fetch_categorical/{category}', [DrugsController::class, 'getCategoricalDrugs']);
 Route::post('add_drugs', [DrugsController::class, 'addDrugs']);
 Route::put('edit_drug/{id}', [DrugsController::class, 'editDrug']);
-
+Route::delete('delete_drug/{id}', [DrugsController::class, 'deleteDrug']);
 
 Route::get('all_categories', [DrugsController::class, 'getAllCategories']);
 Route::post('add_category', [DrugsController::class, 'addCategory']);

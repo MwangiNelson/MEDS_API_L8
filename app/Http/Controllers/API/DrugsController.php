@@ -140,6 +140,16 @@ class DrugsController extends Controller
 
         return $this->apiDeliver(200, 'Meds Updated');
     }
+    //DELETE DRUG
+    public function deleteDrug($id){
+        $deleted_drug = drugs::find($id)->delete();
+
+        if($deleted_drug){
+            return  $this->apiDeliver(200, 'Drug deleted successfully');
+        }else{
+            return  $this->apiDeliver(404, 'Drug deletion failed.');
+        }
+    }
 
     //ADD DRUG CATEGORY
 
@@ -147,5 +157,5 @@ class DrugsController extends Controller
 
     //EDIT DRUG CATEGORY
 
-    //
+    
 }
